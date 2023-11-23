@@ -1,6 +1,6 @@
-path: C:\Users\Vasile\Desktop\Yolo\resources
-train: train/images
-val: train/images
+path: C:\Users\Vasile\Desktop\Clash_of_Clans_Automation
+train: resources/train/images
+val: resources/train/images
 
 nc: 3
 names: 

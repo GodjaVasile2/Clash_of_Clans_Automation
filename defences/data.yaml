@@ -1,4 +1,4 @@
-path: C:\Users\Vasile\Desktop\Yolo
+path: C:\Users\Vasile\Desktop\Clash_of_Clans_Automation
 train: defences/train/images
 val: defences/valid/images
 test: defences/test/images
