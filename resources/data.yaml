@@ -1,0 +1,9 @@
+path: C:\Users\Vasile\Desktop\Yolo\resources
+train: train/images
+val: train/images
+
+nc: 3
+names: 
+  0: elixir_colector
+  1: gold_mine
+  2: dark_elixir_colector

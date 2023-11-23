@@ -1,0 +1,14 @@
+pygame.py 
+app.py
+best_lite.pt
+best.pt
+
+# ignore the next folders
+runs/
+videos/
+
+```
+
+
+
+
