@@ -1,5 +1,8 @@
 opencv-python
 pyautogui
 easyocr
-pillow
 numpy
+pillow
+torch
+torchvision
+ultralytics

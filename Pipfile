@@ -11,6 +11,8 @@ easyocr = "*"
 opencv-python = "*"
 ultralytics = "*"
 supervision = "*"
+pillow = "*"
+numpy = "*"
 
 [dev-packages]
 
