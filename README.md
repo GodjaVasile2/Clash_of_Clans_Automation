@@ -6,7 +6,8 @@ This project comprises a set of Python scripts for automating tasks in Clash of 
 
 ## Demo Video
 
-Watch the demo of the project here: [Demo Video](demo.mp4)
+https://github.com/GodjaVasile2/Clash_of_Clans_Automation/assets/131607138/7175aa58-93fa-4169-ae7f-3730d01a839e
+
 
 ## Functionalities
 
