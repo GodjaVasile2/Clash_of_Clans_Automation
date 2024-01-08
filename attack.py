@@ -89,6 +89,8 @@ def deploy_troops(village_img):
     # i have to identify the green zones where i can deploy the troops as close as posible to the detected resources
     # identify the position of the resources
 
+    pyautogui.click(338, 992)
+
     yolo_model = YOLO("best.pt")
     results = yolo_model(village_img, save=True, conf=0.40)
     for element in results:
@@ -97,33 +99,56 @@ def deploy_troops(village_img):
 
             acceptable_colors = [(159, 178, 75), (178, 194, 73)]
 
-            deploy_x, deploy_y = find_closest_green_zone(
-                x_min, y_min, x_max, y_max, acceptable_colors)
+            closest_point = find_closest_pixel_outside_rectangle(
+                x_min, y_min, x_max, y_max, acceptable_colors, min_distance=4)
+
+            if closest_point is not None:
+                deploy_x, deploy_y = closest_point
+                print(f"Deploying troops at {deploy_x}, {deploy_y}.")
+                # pyautogui.click(deploy_x, deploy_y)
+            else:
+                print("No suitable pixel found for deployment.")
+                pass
 
             # click on the troop from the bar
             # select barbarian troop
 
-            pyautogui.click(338, 992)
+            pyautogui.click(deploy_x, deploy_y)
 
-            for _ in range(5):
-                pyautogui.click(deploy_x, deploy_y)
-                time.sleep(0.1)  #
             # select archer troop
             # click on the closest green zone to the resource
 
+# x_min is the minimum x-coordinate (the leftmost point of the rectangle).
+# y_min is the minimum y-coordinate (the topmost point of the rectangle).
+# x_max is the maximum x-coordinate (the rightmost point of the rectangle).
+# y_max is the maximum y-coordinate (the bottommost point of the rectangle).
 
-def find_closest_green_zone(x_min, y_min, x_max, y_max, acceptable_colors):
+
+def find_closest_pixel_outside_rectangle(x_min, y_min, x_max, y_max, acceptable_colors, min_distance=5):
     screenshot = pyautogui.screenshot()
     closest_point = None
-    min_distance = float('inf')
+    min_distance_outside = float('inf')
 
-    for x in range(int(x_min), int(x_max) + 1):
-        for y in range(int(y_min), int(y_max) + 1):
+    x_min, y_min, x_max, y_max, min_distance = map(
+        int, (x_min, y_min, x_max, y_max, min_distance))
+
+    # Define the search area to be outside the rectangle at a minimum distance of 5 pixels
+    search_x_min = max(0, x_min - min_distance)
+    search_y_min = max(0, y_min - min_distance)
+    search_x_max = min(screenshot.width, x_max + min_distance)
+    search_y_max = min(screenshot.height, y_max + min_distance)
+
+    for x in range(search_x_min, search_x_max + 1):
+        for y in range(search_y_min, search_y_max + 1):
+            # Skip pixels inside the rectangle
+            if x_min <= x <= x_max and y_min <= y <= y_max:
+                continue
+
             color = screenshot.getpixel((x, y))
             if color in acceptable_colors:
                 distance = np.sqrt((x - x_min)**2 + (y - y_min)**2)
-                if distance < min_distance:
-                    min_distance = distance
+                if distance < min_distance_outside:
+                    min_distance_outside = distance
                     closest_point = (x, y)
 
     return closest_point
@@ -135,7 +160,7 @@ def main():
 
     # find the attack button
     find_template('attack_resources/attack_btn.png',
-                  threshold=0.8, random_offset=True)
+                  threshold=0.8, delay_after_click=1, random_offset=True)
     # find the find a match button
     find_template('attack_resources/find_a_match_btn.png', threshold=0.8,
                   delay_after_click=4, random_offset=True)

@@ -4,6 +4,10 @@
 
 This project comprises a set of Python scripts for automating tasks in Clash of Clans wich is one of my childhood game. It uses computer vision and machine learning techniques, leveraging OpenCV, PyAutoGUI, and EasyOCR, to interact with the game environment. The primary focus is on resource collection and enemy base analysis. This project is for educational and exploratory purposes.
 
+## Demo Video
+
+Watch the demo of the project here: [Demo Video](demo.mp4)
+
 ## Functionalities
 
 - **Resource Collection Automation:** Automates resource collection in the village using YOLO for object detection and PyAutoGUI for screen interactions.

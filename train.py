@@ -15,4 +15,4 @@ trained_model = model.train(data="defences/data.yaml", epochs=100)
 
 
 # terminal command for predincting images
-# yolo task=detect mode=predict model=runs/detect/train/weights/best.pt conf=0.25 source = "resources/test/images"
+# yolo task=detect mode=predict model=yolov8n conf=0.25 source = "animals.jpg"
